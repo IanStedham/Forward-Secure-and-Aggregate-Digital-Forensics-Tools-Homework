@@ -12,8 +12,6 @@ unsigned char* Read_File(char fileName[], int *fileLen);
 unsigned char* AES_CTR(unsigned char* key, unsigned char* message);
 unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* input, unsigned long inputLength)
 
-//AES initialization vector - 16bytes
-unsigned char IV[16] = "abcdefghijklmnop";
 
 int main(int argc, char *argv[]) {
     // Fethc message
@@ -124,14 +122,14 @@ unsigned char* PRNG(unsigned char *seed, unsigned long seedlen, unsigned long pr
     return pseudoRandomNumber;
 }
 /*============================
-      AES-CTR Fucntion 
+      AES-CTR Function 
 ==============================*/
 unsigned char* AES_CTR(unsigned char* key, unsigned char* message) {
     unsigned char IV[16] = "abcdefghijklmnop";
 
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     
-    EVP_EncryptInit_ex(ctx, EVP_aes_128_ctr(), NULL, key, IV);
+    EVP_EncryptInit_ex(ctx, EVP_aes_256_ctr(), NULL, key, IV);
 
     unsigned char *encryptMessage = malloc(1024);
 
