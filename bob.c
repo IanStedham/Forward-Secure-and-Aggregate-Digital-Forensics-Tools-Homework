@@ -125,3 +125,15 @@ unsigned char* AES_CTR(unsigned char* key, unsigned char* message) {
     EVP_CIPHER_CTX_free(ctx);
     return encryptMessage;
 }
+
+//=====================
+// HMAC-SHA256 FUNCTION 
+//======================
+unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* input, unsigned long inputLength)
+{
+    unsigned char *HMAC = malloc(SHA256_DIGEST_LENGTH);
+
+    HMAC(EVP_sha256(), key, keyLength, input, inputLength)
+
+    return HMAC;
+}
