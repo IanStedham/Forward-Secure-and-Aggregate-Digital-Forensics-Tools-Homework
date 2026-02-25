@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
     unsigned char *currentMessage = malloc(1024);
     int currentMessagePos = 0;
     int messageCount = 0;
+
     for (int x = 0; x < messageLength; x++) {
         // printf("%d\n", x);
         if (message[x] == '\n') {

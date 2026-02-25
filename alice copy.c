@@ -31,22 +31,29 @@ int main(int argc, char *argv[]) {
     unsigned char *currentMessage = malloc(1024);
     int currentMessagePos = 0;
     int messageCount = 0;
-
+    unsigned char sigmas[10][32]; //array to store HMAC/sigma of each round - one 32 byte digest for each message
 
     for (int x = 0; x < messageLength; x++) {
-        // printf("%d\n", x);
         if (message[x] == '\n') {
             currentMessage[currentMessagePos] = '\0';
             currentMessagePos = 0;
-            printf("message: %s\n", currentMessage);
             cipherTexts[messageCount] = AES_CTR(initialKey, currentMessage);
 
+
+            //unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* input, unsigned long inputLength)
+            unsigned char* sigma_for_this_round = HMAC_SHA256(initialKey, 32, cipherTexts[messageCount], 1024);
+            
+            //copy from mem to the HMAC aggregation array
+            memcpy(sigmas[messageCount], sigma_for_this_round, 32);
+
+            //free the pointer for next round
+            free(sigma_for_this_round);
+        
             //generate new key for next message -> each message needs its own key, derived from previous key
             unsigned char *nextKey = Hash_SHA256(initialKey, 32);
             free(initialKey);
             initialKey = nextKey;
-            
-            printf("cipher text %d: %s\n\n", messageCount, cipherTexts[messageCount]);
+
             messageCount++;
         }
         else {
@@ -153,7 +160,7 @@ unsigned char* AES_CTR(unsigned char* key, unsigned char* message) {
 //======================
 unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* input, unsigned long inputLength)
 {
-    unsigned char *HMAC = malloc(SHA256_DIGEST_LENGTH);
+    unsigned char *HMACalloc = malloc(SHA256_DIGEST_LENGTH);
 
     HMAC(EVP_sha256(), key, keyLength, input, inputLength)
 
