@@ -11,7 +11,7 @@ unsigned char* Hash_SHA256(unsigned char* input, unsigned long inputlen);
 void Write_File(char fileName[], char input[], int input_length);
 unsigned char* Read_File(char fileName[], int *fileLen);
 unsigned char* AES_CTR(unsigned char* key, unsigned char* message);
-unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* input, unsigned long inputLength)
+unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* input, unsigned long inputLength);
 
 //
 int main(int argc, char *argv[]) {
@@ -106,10 +106,3 @@ int main(int argc, char *argv[]) {
     return 0;
 
 }
-
-
-
-
-
-}
-
