@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 
     //convert received aggregateHMAC sigma_1-i to bytes
     unsigned char aggregateHMAC_byte_received[32]; 
-    hex2Byte(aggregateHMAC_byte_received, aggregateHMAC_hex, 32);
+    hex2Byte(aggregateHMAC_byte_received, (char*)aggregateHMAC_hex, 32);
 
     //compute the aggregate hmac sigma_1-i
     unsigned char aggregateHMAC[32];
