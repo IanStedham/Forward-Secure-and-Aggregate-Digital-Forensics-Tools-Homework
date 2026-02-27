@@ -5,6 +5,7 @@
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 #include <openssl/hmac.h>
+
 #include "utils.c" // Utility functions: Read_File, Write_File, Convert_to_Hex, SHA256, PRNG, AES-ENCrypt/decrypt, HMAC
 
 int main(int argc, char *argv[]) {
