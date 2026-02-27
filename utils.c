@@ -26,8 +26,8 @@ unsigned char* Read_File (char fileName[], int *fileLen)
     int temp_size = ftell(pFile)+1; //get file size
     fseek(pFile, 0L, SEEK_SET);
     unsigned char *output = (unsigned char*) malloc(temp_size); //messageLength variable from main
-	fread(output, temp_size, pFile);
-    output[temp_size-1] = '\0';
+	fread(output, 1, temp_size, pFile); //freads(output buffer, size of element, how many elements to read, input file)
+    output[temp_size] = '\0'; //null terminate after the data of temp_size
 	fclose(pFile);
 
     *fileLen = temp_size-1;
@@ -110,8 +110,8 @@ unsigned char* AES_CTR(unsigned char* key, unsigned char* message) {
 unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* input, unsigned long inputLength)
 {
     unsigned char *result = malloc(SHA256_DIGEST_LENGTH);
-
-    HMAC(EVP_sha256(), key, keyLength, input, inputLength);
+    unsigned int hmacLength;
+    HMAC(EVP_sha256(), key, keyLength, input, inputLength, result, &hmacLength);
 
     return HMAC;
 }
