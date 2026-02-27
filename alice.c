@@ -52,7 +52,8 @@ int main(int argc, char *argv[]) {
             initialKey = nextKey;
 
             messageCount++;
-            mempcpy(keys[messageCount], initialKey, 1024);
+            if (messageCount < 10) //prevents out of bound memcpy -> should stop at memcpy(keys[9])
+                memcpy(keys[messageCount], initialKey, 1024);
         }
         else {
             currentMessage[currentMessagePos] = message[x];
