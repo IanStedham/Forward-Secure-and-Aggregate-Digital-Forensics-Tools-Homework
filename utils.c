@@ -63,6 +63,40 @@ unsigned char* Hash_SHA256(unsigned char* input, unsigned long inputlen)
     return hash;
 }
 /*============================
+        convert to Hex 
+==============================*/
+void byte2Hex(char output[], unsigned char input[], int inputlength){
+    for (int i = 0; i < inputlength; i++) {
+        sprintf((char*)&output[2*i], "%02x", input[i]);
+    }
+    output[2 * inputlength] = '\0'; 
+}
+
+/*============================
+        Showing in Hex 
+==============================*/
+void show_in_Hex (char name[], unsigned char hex[], int hexlen) {
+	printf("%s: ", name);
+	for (int i = 0 ; i < hexlen ; i++)
+   		printf("%02x", hex[i]);
+	printf("\n");
+}
+/*============================
+        hex to bytes 
+==============================*/
+unsigned char* hex2Bytes(unsigned char hexString[], int *outLen){
+    char *hex_string = (char*)hexString;
+    int len = strlen(hex_string);
+    *outLen = len / 2;
+    unsigned char *bytes = (unsigned char*)malloc(*outLen);
+    
+    for (int i = 0; i < *outLen; i++) {
+        sscanf(&hex_string[2*i], "%2hhx", &bytes[i]); 
+    }
+    
+    return bytes;
+}
+/*============================
         PRNG Fucntion 
 ==============================*/
 unsigned char* PRNG(unsigned char *seed, unsigned long seedlen, unsigned long prnglen)
