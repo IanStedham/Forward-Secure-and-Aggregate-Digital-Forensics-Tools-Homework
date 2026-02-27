@@ -60,12 +60,12 @@ int main(int argc, char *argv[]) {
         initialKey = nextKey;
     }
 
-    //build aggregate hmac file
+    //build aggregate hmac chain
     unsigned char *aggregateHash_s1 = Hash_SHA256(hmacs[0], 32);
     memcpy(aggregateHMAC, aggregateHash_s1, 32);
     free(aggregateHash_s1);
 
-    for (int i = 1; i < 10; i++) { //loop needs to start at i = 1 since sigma1 was already computed
+    for (int i = 1; i < 10; i++) { //loop needs to start at i = 1 since sigma1 is the basecase hash(sigma1) 
         unsigned char concat[64]; //concat = sigma_prev + sigma_current
         memcpy(concat, aggregateHMAC, 32);
         memcpy(concat + 32, hmacs[i], 32); 
