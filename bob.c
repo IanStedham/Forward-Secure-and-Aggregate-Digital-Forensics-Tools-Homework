@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
+#include "utils.c"         // Utility functions: Read_File, Write_File, Convert_to_Hex
 
 unsigned char* PRNG(unsigned char *seed, unsigned long seedlen, unsigned long prnglen);
 unsigned char* Hash_SHA256(unsigned char* input, unsigned long inputlen);
