@@ -23,14 +23,14 @@ unsigned char* Read_File (char fileName[], int *fileLen)
 		exit(0);
 	}
     fseek(pFile, 0L, SEEK_END);
-    int temp_size = ftell(pFile)+1; //get file size
+    int temp_size = ftell(pFile); //get file size
     fseek(pFile, 0L, SEEK_SET);
-    unsigned char *output = (unsigned char*) malloc(temp_size); //messageLength variable from main
+    unsigned char *output = (unsigned char*) malloc(temp_size + 1); //messageLength variable from main +1 for null
 	fread(output, 1, temp_size, pFile); //freads(output buffer, size of element, how many elements to read, input file)
     output[temp_size] = '\0'; //null terminate after the data of temp_size
 	fclose(pFile);
 
-    *fileLen = temp_size-1;
+    *fileLen = temp_size;
 	return output;
 }
 /*============================
@@ -84,17 +84,10 @@ void show_in_Hex (char name[], unsigned char hex[], int hexlen) {
 /*============================
         hex to bytes 
 ==============================*/
-unsigned char* hex2Bytes(unsigned char hexString[], int *outLen){
-    char *hex_string = (char*)hexString;
-    int len = strlen(hex_string);
-    *outLen = len / 2;
-    unsigned char *bytes = (unsigned char*)malloc(*outLen);
-    
-    for (int i = 0; i < *outLen; i++) {
-        sscanf(&hex_string[2*i], "%2hhx", &bytes[i]); 
+void hex2Byte(unsigned char output[], char input[], int outputlength) {
+    for (int i = 0; i < outputlength; i++) {
+        sscanf(&input[2*i], "%02hhx", &output[i]);
     }
-    
-    return bytes;
 }
 /*============================
         PRNG Fucntion 
@@ -147,7 +140,7 @@ unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* inp
     unsigned int hmacLength;
     HMAC(EVP_sha256(), key, keyLength, input, inputLength, result, &hmacLength);
 
-    return HMAC;
+    return result;
 }
 //=====
 // AES_decrypt

@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     int currentMessagePos = 0;
     int messageCount = 0;
 
-    mempcpy(keys[0], initialKey, 1024);
+    mempcpy(keys[0], initialKey, 32);
     for (int x = 0; x < messageLength; x++) {
         if (message[x] == '\n' || x == messageLength-1) {
             if (x == messageLength-1) {
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
 
             messageCount++;
             if (messageCount < 10) //prevents out of bound memcpy -> should stop at memcpy(keys[9])
-                memcpy(keys[messageCount], initialKey, 1024);
+                memcpy(keys[messageCount], initialKey, 32);
         }
         else {
             currentMessage[currentMessagePos] = message[x];
