@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     unsigned char* sharedSeed = Read_File(argv[2], &seedLength);
 
     // Generate initial key
-    unsigned char* initialKey = PRNG(sharedSeed, seedLength, 1024);
+    unsigned char* initialKey = PRNG(sharedSeed, seedLength, 32);
 
     // Parse message into array and encrypt each message
     unsigned char *cipherTexts[10];
