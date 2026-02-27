@@ -86,7 +86,8 @@ void show_in_Hex (char name[], unsigned char hex[], int hexlen) {
 ==============================*/
 void hex2Byte(unsigned char output[], char input[], int outputlength) {
     for (int i = 0; i < outputlength; i++) {
-        sscanf(&input[2*i], "%02hhx", &output[i]);
+        //%02hhx - read 2 hex characters and store as hh (char sized), x=hex
+        sscanf(&input[2*i], "%02hhx", &output[i]); //2*i since each byte is represented as 2 hex characters
     }
 }
 /*============================
