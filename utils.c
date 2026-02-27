@@ -26,7 +26,8 @@ unsigned char* Read_File (char fileName[], int *fileLen)
     int temp_size = ftell(pFile)+1; //get file size
     fseek(pFile, 0L, SEEK_SET);
     unsigned char *output = (unsigned char*) malloc(temp_size); //messageLength variable from main
-	fgets(output, temp_size, pFile);
+	fread(output, temp_size, pFile);
+    output[temp_size-1] = '\0';
 	fclose(pFile);
 
     *fileLen = temp_size-1;
