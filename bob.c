@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
     memcpy(aggregateHMAC, aggregateHash_s1, 32);
     free(aggregateHash_s1);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 1; i < 10; i++) { //loop needs to start at i = 1 since sigma1 was already computed
         unsigned char concat[64]; //concat = sigma_prev + sigma_current
         memcpy(concat, aggregateHMAC, 32);
         memcpy(concat + 32, hmacs[i], 32); 
