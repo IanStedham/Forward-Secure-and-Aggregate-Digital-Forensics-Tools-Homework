@@ -4,16 +4,8 @@
 #include <unistd.h>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
-#include "utils.c"         // Utility functions: Read_File, Write_File, Convert_to_Hex
+#include "utils.c" // Utility functions: Read_File, Write_File, Convert_to_Hex, SHA256, PRNG, AES-ENCrypt/decrypt, HMAC
 
-unsigned char* PRNG(unsigned char *seed, unsigned long seedlen, unsigned long prnglen);
-unsigned char* Hash_SHA256(unsigned char* input, unsigned long inputlen);
-void Write_File(char fileName[], char input[], int input_length);
-unsigned char* Read_File(char fileName[], int *fileLen);
-unsigned char* AES_CTR(unsigned char* key, unsigned char* message);
-unsigned char* HMAC_SHA256(unsigned char* key, int keyLength, unsigned char* input, unsigned long inputLength);
-
-//
 int main(int argc, char *argv[]) {
     // Bob reads the shared seed from a file named ”SharedSeed.txt”
     int seedLength;
